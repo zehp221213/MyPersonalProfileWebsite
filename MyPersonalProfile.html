@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Profile Website!</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-slate: #020617;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(139, 92, 246, 0.25);
+            --card-border-hover: rgba(139, 92, 246, 0.55);
+            --violet-500: #8b5cf6;
+            --violet-400: #a78bfa;
+            --violet-300: #c4b5fd;
+            --violet-950: #2e1065;
+            --slate-100: #f8fafc;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-slate);
+            color: var(--slate-100);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+            padding-top: 5rem;
+        }
+
+        /* Sticky Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 0.75rem 1rem;
+        }
+
+        .nav-container {
+            max-width: 64rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 0.25rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.875rem;
+            border-radius: 9999px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--slate-300);
+            text-decoration: none;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            transition: all 0.25 ease;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            background: rgba(139, 92, 246, 0.25);
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn i {
+            color: var(--violet-400);
+            font-size: 0.875rem;
+        }
+
+        /* Target Scroll Offset Fix */
+        section {
+            scroll-margin-top: 6rem;
+        }
+
+        /* Glassmorphism effects */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--card-border-hover);
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.35);
+        }
+
+        .violet-gradient-text {
+            background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .violet-glow {
+            box-shadow: 0 0 50px -10px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Background Orbs */
+        .orb-top {
+            position: fixed;
+            top: 0;
+            left: 25%;
+            width: 24rem;
+            height: 24rem;
+            background: rgba(124, 58, 237, 0.15);
+            border-radius: 9999px;
+            filter: blur(64px);
+            pointer-events: none;
+            z-index: -10;
+        }
+
+        .orb-bottom {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 25%;
+            width: 24rem;
+            height: 24rem;
+            background: rgba(147, 51, 234, 0.15);
+            border-radius: 9999px;
+            filter: blur(64px);
+            pointer-events: none;
+            z-index: -10;
+        }
+
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            width: 100%;
+        }
+
+        /* Responsive Layouts */
+        .grid-hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-two-col {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-boxes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .info-boxes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .info-box-full {
+                grid-column: span 2;
+            }
+            .favorites-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .grid-hero {
+                grid-template-columns: 5fr 7fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-two-col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Utility Helpers */
+        .badge {
+            display: inline-block;
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background-color: rgba(46, 16, 101, 0.8);
+            color: var(--violet-300);
+            border: 1px solid rgba(109, 40, 217, 0.5);
+            margin-bottom: 0.75rem;
+        }
+
+        .item-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--slate-800);
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .icon-square {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .icon-header {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 1rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--violet-400);
+            font-size: 1.125rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#hero" style="text-decoration: none;" class="violet-gradient-text">
+                <span style="font-weight: 800; font-size: 1.125rem; letter-spacing: -0.025em;">Seph's Profile</span>
+            </a>
+            <div class="nav-links">
+                <a href="#personal-info" class="nav-btn">
+                    <i class="fa-solid fa-id-card"></i> Personal Info
+                </a>
+                <a href="#about-me" class="nav-btn">
+                    <i class="fa-solid fa-user-astronaut"></i> About Me
+                </a>
+                <a href="#hobbies" class="nav-btn">
+                    <i class="fa-solid fa-heart"></i> Hobbies
+                </a>
+                <a href="#favorites" class="nav-btn">
+                    <i class="fa-solid fa-star"></i> Favorites
+                </a>
+                <a href="#motto" class="nav-btn">
+                    <i class="fa-solid fa-quote-left"></i> My Motto
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Decorative Elements -->
+    <div class="orb-top"></div>
+    <div class="orb-bottom"></div>
+
+    <div class="container">
+        
+        <!-- HEADER TITLE -->
+        <header id="hero" style="text-align: center; margin-bottom: 2.5rem; scroll-margin-top: 6rem;">
+            <span class="badge">
+                <i class="fa-solid fa-sparkles text-violet-400" style="margin-right: 0.5rem;"></i>Personal Profile Showcase
+            </span>
+            <h1 class="violet-gradient-text" style="font-size: clamp(2rem, 5vw, 3.75rem); font-weight: 800; tracking-tight; line-height: 1.2;">
+                Welcome to My Personal Profile!
+            </h1>
+            <p style="color: var(--slate-400); margin-top: 0.5rem; font-size: 1rem;">Get to know more about me, my passions, and who I truly am.</p>
+        </header>
+
+        <!-- MAIN HERO & PERSONAL INFO SECTION -->
+        <section id="personal-info" class="grid-hero">
+            
+            <!-- PROFILE IMAGE CARD -->
+            <div class="glass-card" style="padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                <div style="position: relative; width: 13rem; height: 13rem; margin-bottom: 1.25rem;">
+                    <!-- Violet Glow Ring -->
+                    <div style="position: absolute; inset: -6px; background: linear-gradient(to right, #7c3aed, #c026d3); border-radius: 9999px; filter: blur(6px); opacity: 0.85;"></div>
+                    
+                    <!-- Profile Picture -->
+                    <img src="content://com.android.externalstorage.documents/tree/primary%3Afolderngpicture/document/primary%3Afolderngpicture%2F12084_2ed5e3.jpg"
+                         alt="" 
+                         style="position: relative; width: 100%; height: 100%; object-fit: cover; border-radius: 9999px; border: 4px solid var(--slate-900); shadow: 0 20px 25px -5px rgba(0,0,0,0.5);"
+                         onerror="this.src='https://placehold.co/400x400/6d28d9/ffffff?text=Joseph+Abata'">
+                </div>
+                
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem;">Joseph Edward L. Abata</h2>
+                <p style="color: var(--violet-400); font-weight: 500; font-size: 0.875rem; display: flex; align-items: center; gap: 0.375rem;">
+                    <i class="fa-solid fa-graduation-cap"></i> Student
+                </p>
+            </div>
+
+            <!-- PERSONAL INFORMATION DETAILS CARD -->
+            <div class="glass-card" style="padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div class="icon-header">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">Personal Information</h2>
+                    </div>
+
+                    <div class="info-boxes-grid">
+                        <!-- Name Box -->
+                        <div class="item-card info-box-full">
+                            <div class="icon-square" style="background: var(--violet-950); color: var(--violet-400);">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate-400); font-weight: 600; display: block;">Full Name</span>
+                                <p style="font-size: 1.125rem; font-weight: 600; color: var(--slate-100);">Joseph Edward L. Abata</p>
+                            </div>
+                        </div>
+
+                        <!-- Age Box -->
+                        <div class="item-card">
+                            <div class="icon-square" style="background: var(--violet-950); color: var(--violet-400);">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate-400); font-weight: 600; display: block;">Age</span>
+                                <p style="font-size: 1.125rem; font-weight: 600; color: var(--slate-100);">16 Years Old</p>
+                            </div>
+                        </div>
+
+                        <!-- Birthday Box -->
+                        <div class="item-card">
+                            <div class="icon-square" style="background: var(--violet-950); color: var(--violet-400);">
+                                <i class="fa-solid fa-cake-candles"></i>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate-400); font-weight: 600; display: block;">Birthday</span>
+                                <p style="font-size: 1.125rem; font-weight: 600; color: var(--slate-100);">October 9, 2010</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(30, 41, 59, 0.8); display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--slate-400);">
+                    <span style="display: flex; align-items: center; gap: 0.375rem;"><i class="fa-solid fa-circle" style="color: #34d399; font-size: 0.5rem;"></i> Profile Active</span>
+                    <span><i class="fa-solid fa-location-dot" style="color: var(--violet-400); margin-right: 0.25rem;"></i> Student Profile</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME SECTION -->
+        <section id="about-me" class="glass-card" style="padding: 1.75rem; margin-bottom: 2rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div class="icon-header">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">About Me</h2>
+            </div>
+            <p style="color: var(--slate-300); line-height: 1.7; font-size: 1.05rem;">
+                Hi! I am <span style="color: var(--violet-300); font-weight: 600;">Joseph Edward L. Abata</span>, a passionate student with big dreams that will surely be turned into reality someday, nothing is impossible if u put ur mind into it! Believe it!
+            </p>
+        </section>
+
+        <!-- HOBBIES & FAVORITES GRID -->
+        <div class="grid-two-col">
+            
+            <!-- HOBBIES SECTION -->
+            <section id="hobbies" class="glass-card" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                    <div class="icon-header">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">Hobbies</h2>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Basketball -->
+                    <div class="item-card">
+                        <div class="icon-square" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24;">
+                            <i class="fa-solid fa-basketball"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-weight: 700; color: #fff; font-size: 1.125rem;">Basketball</h3>
+                            <p style="font-size: 0.75rem; color: var(--slate-400); margin-top: 0.125rem;">Staying motivated, building endurance, playing for fun!</p>
+                        </div>
+                    </div>
+
+                    <!-- Video Games -->
+                    <div class="item-card">
+                        <div class="icon-square" style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); color: #818cf8;">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-weight: 700; color: #fff; font-size: 1.125rem;">Video Games</h3>
+                            <p style="font-size: 0.75rem; color: var(--slate-400); margin-top: 0.125rem;">Improving quick decision skills, Beating game challenges, and gaming with friends!</p>
+                        </div>
+                    </div>
+
+                    <!-- Drawing -->
+                    <div class="item-card">
+                        <div class="icon-square" style="background: rgba(217, 70, 239, 0.1); border: 1px solid rgba(217, 70, 239, 0.3); color: #f0abfc;">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-weight: 700; color: #fff; font-size: 1.125rem;">Drawing</h3>
+                            <p style="font-size: 0.75rem; color: var(--slate-400); margin-top: 0.125rem;">Making each artwork come to life with the creativity that is gifted upon me!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MY FAVORITES SECTION -->
+            <section id="favorites" class="glass-card" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                    <div class="icon-header">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">My Favorites</h2>
+                </div>
+
+                <div class="favorites-grid">
+                    <!-- Favorite Food -->
+                    <div class="item-card" style="flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--violet-400); margin-bottom: 0.25rem;">
+                            <i class="fa-solid fa-utensils" style="font-size: 0.875rem;"></i>
+                            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--slate-400);">Favorite Food</span>
+                        </div>
+                        <p style="font-size: 1.25rem; font-weight: 700; color: #fff;">Sisig</p>
+                        <p style="font-size: 0.75rem; color: var(--slate-400);">Savory & Sizzling classic Filipino dish</p>
+                    </div>
+
+                    <!-- Favorite Color -->
+                    <div class="item-card" style="flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; color: var(--violet-400); margin-bottom: 0.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fa-solid fa-droplet" style="font-size: 0.875rem;"></i>
+                                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--slate-400);">Favorite Color</span>
+                            </div>
+                            <span style="width: 0.875rem; height: 0.875rem; border-radius: 9999px; background: #8b5cf6; border: 2px solid #a78bfa; display: inline-block;"></span>
+                        </div>
+                        <p style="font-size: 1.25rem; font-weight: 700; color: var(--violet-400);">Violet</p>
+                        <p style="font-size: 0.75rem; color: var(--slate-400);">Elegant, Unique & Beautiful</p>
+                    </div>
+
+                    <!-- Favorite Subject -->
+                    <div class="item-card" style="flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--violet-400); margin-bottom: 0.25rem;">
+                            <i class="fa-solid fa-book-open" style="font-size: 0.875rem;"></i>
+                            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--slate-400);">Favorite Subject</span>
+                        </div>
+                        <p style="font-size: 1.25rem; font-weight: 700; color: #fff;">T.L.E.</p>
+                        <p style="font-size: 0.75rem; color: var(--slate-400);">Technology & Livelihood Education</p>
+                    </div>
+
+                    <!-- Favorite Sport -->
+                    <div class="item-card" style="flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--violet-400); margin-bottom: 0.25rem;">
+                            <i class="fa-solid fa-hand-fist" style="font-size: 0.875rem;"></i>
+                            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--slate-400);">Favorite Sport</span>
+                        </div>
+                        <p style="font-size: 1.25rem; font-weight: 700; color: #fff;">Martial Arts</p>
+                        <p style="font-size: 0.75rem; color: var(--slate-400);">Staying in shape while building muscle, disciplined and focused!</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MY MOTTO SECTION -->
+        <section id="motto" class="glass-card violet-glow" style="padding: 2.5rem 1.5rem; text-align: center; position: relative; overflow: hidden;">
+            <div style="position: relative; z-index: 10; max-width: 42rem; margin: 0 auto;">
+                <div class="icon-header" style="margin: 0 auto 1rem auto; width: 3rem; height: 3rem; font-size: 1.25rem;">
+                    <i class="fa-solid fa-quote-left"></i>
+                </div>
+                
+                <h2 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--violet-400); font-weight: 700; margin-bottom: 0.75rem;">My Motto in Life</h2>
+                
+                <blockquote style="font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 800; color: #fff; line-height: 1.25; margin: 0.5rem 0;">
+                    "Treat Everyday Like It's Your Last."
+                </blockquote>
+                
+                <div style="width: 4rem; height: 4px; background: linear-gradient(to right, #8b5cf6, #a855f7); margin: 1.5rem auto 0 auto; border-radius: 9999px;"></div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer style="margin-top: 3rem; text-align: center; color: var(--slate-400); font-size: 0.875rem; padding: 1rem 0;">
+            <p>© Joseph Edward L. Abata. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
